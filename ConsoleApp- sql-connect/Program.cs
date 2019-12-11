@@ -17,13 +17,12 @@ namespace ConsoleApp__sql_connect
                 sqlConnection.Open();
 
                 var sql = "insert into dbo.users(Id,Username,FirstName, Lastname ,IsEnabled, CreatedDateUtc, LastLoggedinDateUtc) values('uniquestring', 'user1', '2222', 'tertet', 1, '12-10-25 12:32:10 +1:00', '12-10-20 12:32:10 +1:00')";
+                using (var command = new SqlCommand(sql, sqlConnection)) {
 
-                using (new SqlCommand(sql, sqlConnection))
-                {
+                    var result = command.ExecuteNonQuery();
+
+
                 }
-
-                sqlConnection.Close();
-
             }
 
 
@@ -40,13 +39,14 @@ namespace ConsoleApp__sql_connect
                             var username = reader["Username"] as string;
                             var id = reader["Id"] as string;
                             Console.WriteLine($"{username} {id}");
-                            Console.ReadLine();
                         }
 
                         sqlConnection.Close();
                     }
                 }
             }
+
+            Console.ReadLine();
         }
     }
 }
